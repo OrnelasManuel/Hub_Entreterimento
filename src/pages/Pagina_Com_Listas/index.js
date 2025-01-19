@@ -46,8 +46,6 @@ export default function Pagina_Com_Listas({
           });
         });
       });
-    } else if (!Listas_Achadas_Por_Tipo?.Generos) {
-      window.location.reload();
     }
   }, [Listas_Achadas_Por_Tipo]);
 
