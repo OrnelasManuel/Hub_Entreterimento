@@ -1,0 +1,76 @@
+.Sessao_De_Login {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+.Conjunto_Inputs_E_Dados_De_Login {
+  background-color: #424057;
+  padding: 2rem 3rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.Conjunto_Inputs_E_Dados_De_Login > h2 {
+  margin-bottom: 5rem;
+  font-size: 3rem;
+}
+
+.Conjunto_De_Inputs {
+  position: relative;
+}
+.Conjunto_De_Inputs + .Conjunto_De_Inputs {
+  margin-top: 3rem;
+}
+.Conjunto_De_Inputs > label {
+  transition: all 0.2s linear;
+  position: absolute;
+  z-index: 10;
+  color: white;
+  font-size: 1.3rem;
+  left: 15px;
+  top: 16px;
+}
+.Conjunto_De_Inputs > input {
+  background-color: #353445;
+  padding: 1rem;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+}
+.Conjunto_De_Inputs > i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.Conjunto_De_Botoes {
+  margin-top: 3rem;
+  width: 100%;
+  display: flex;
+}
+.Conjunto_De_Botoes > button {
+  padding: 0.7rem;
+  font-size: 1.2rem;
+  background-color: #353445;
+  outline: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.Primeiro_Botao_Do_Conjunto {
+  flex-grow: 1;
+  margin-right: 1rem;
+}
+
+.Carregamento_De_Botao {
+  width: 17px;
+}

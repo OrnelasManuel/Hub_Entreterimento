@@ -1,0 +1,16 @@
+.Seta_Para_Navegacao_De_Barra,
+.Seta_Para_Navegacao_De_Barra_Direita {
+  position: absolute;
+  top: calc(50% - 1.5rem);
+  z-index: 10;
+  background-color: #424057;
+  padding: 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.Seta_Para_Navegacao_De_Barra {
+  left: -2.4rem;
+}
+.Seta_Para_Navegacao_De_Barra_Direita {
+  right: -3.8rem;
+}

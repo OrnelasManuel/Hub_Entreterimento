@@ -1,0 +1,67 @@
+.Conjunto_De_Sessoes {
+  display: flex;
+  margin: 0 20vw;
+  margin-top: 5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+.Sessao_De_Filmes_E_Series_Individual {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: white;
+  position: relative;
+}
+.Sessao_De_Filmes_E_Series_Individual + .Sessao_De_Filmes_E_Series_Individual {
+  margin-top: 2.5rem;
+}
+.Sessao_De_Filmes_E_Series_Individual > h2 {
+  margin-bottom: 1rem;
+}
+
+.Imagem_De_Carregamento_De_Listas {
+  width: 10vw;
+}
+
+.Conjunto_De_Banner_Com_Nome {
+  margin-left: 1.5rem;
+  background-color: #424057;
+  padding: 1rem;
+  border-radius: 40px;
+  width: 50vw;
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
+}
+
+.Banner_E_Nome_Individual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10rem;
+  height: 19rem;
+  position: relative;
+  cursor: pointer;
+}
+.Banner_E_Nome_Individual > i {
+  position: absolute;
+  font-size: 1.5rem;
+  left: 0.5rem;
+  top: 0.5rem;
+  color: red;
+  cursor: pointer;
+}
+.Banner_E_Nome_Individual + .Banner_E_Nome_Individual {
+  margin-left: 2rem;
+}
+.Banner_E_Nome_Individual > img {
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  width: 10rem;
+  height: 100%;
+  object-fit: cover;
+}

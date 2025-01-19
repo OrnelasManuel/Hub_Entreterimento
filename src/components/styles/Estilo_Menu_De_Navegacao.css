@@ -1,0 +1,41 @@
+.Conjunto_Menu {
+  background-color: #424057;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+}
+
+.Item_Do_Menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1rem;
+  transition: width 0.2s ease;
+  position: relative;
+  border-bottom: 1px solid #353445;
+
+  cursor: pointer;
+}
+.Item_Do_Menu:hover,
+.Item_Do_Menu:hover > span,
+.Item_Do_Menu:hover > i {
+  background-color: #373455;
+  color: rgb(121, 121, 121);
+}
+.Item_Do_Menu > span,
+.Item_Do_Menu > i {
+  color: white;
+}
+.Item_Do_Menu > span {
+  position: absolute;
+  left: 5rem;
+  font-size: 1.4rem;
+  transition: opacity 0.1s linear;
+}
+.Item_Do_Menu > i {
+  font-size: 1.8rem;
+  text-align: center;
+  width: 3rem;
+}

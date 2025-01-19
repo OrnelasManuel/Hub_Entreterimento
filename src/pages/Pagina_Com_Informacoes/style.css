@@ -1,0 +1,130 @@
+.Div_Com_Informacoes {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+}
+
+.Conjunto_De_Informacoes_Lado_Esquerdo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  height: 100vh;
+  max-width: 15vw;
+  margin-left: 20vw;
+  margin-right: 5rem;
+  transform: scale(1.3);
+}
+.Conjunto_Generos_E_Titulo {
+  display: flex;
+  align-items: center;
+}
+.Conjunto_Generos_E_Titulo > p {
+  margin-right: 0.5rem;
+}
+.Conjunto_Generos_E_Titulo > span {
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  border: none;
+  filter: drop-shadow(2px 4px 6px black);
+}
+.Conjunto_Generos_E_Titulo > span + span {
+  margin-left: 0.3rem;
+}
+
+.Conjunto_Imagem_Com_Coracao_Informacao {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.Conjunto_Imagem_Com_Coracao_Informacao > i {
+  position: absolute;
+  font-size: 1.5rem;
+  left: 0.5rem;
+  top: 0.5rem;
+  color: red;
+  cursor: pointer;
+  z-index: 10;
+}
+.Conjunto_Imagem_Com_Coracao_Informacao > img {
+  width: 100%;
+  height: 35rem;
+  border-radius: 20px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.Conjunto_De_Informacoes_Lado_Direito {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-grow: 1;
+  height: 67%;
+  gap: 1.5rem;
+}
+
+.Conjunto_De_Titulo_E_Notas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.Titulo_Do_Item_informacoes {
+  margin: 0;
+}
+
+.Nota_Do_Item_Informacoes {
+  font-size: 1.5rem;
+}
+
+.Conjunto_De_Estrelas_Informacao {
+  position: relative;
+}
+
+.Estrelas_Cheias_Informacao {
+  position: absolute;
+  display: flex;
+  top: 0;
+  flex: 0 1 auto;
+  width: 50%;
+  max-width: fit-content;
+  overflow: hidden;
+}
+
+.Conjunto_Avaliacao_Titulo_E_Escrita {
+  flex-grow: 1;
+  width: 80%;
+}
+.Conjunto_Avaliacao_Titulo_E_Escrita > h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.Input_De_Avaliacao_Informacao {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  outline: none;
+  background-color: #424057;
+  border: none;
+  color: white;
+  padding: 1rem;
+  font-size: 1.3rem;
+  resize: none;
+}
+.Input_De_Avaliacao_Informacao::placeholder {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #706e83;
+}
+
+.Informacao_De_Quantas_Palavras_Maximas {
+  justify-self: flex-end;
+  color: #706e83;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+}
