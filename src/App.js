@@ -12,7 +12,7 @@ export default function App() {
 
   useEffect(() => {
     Axios.post(
-      "https://hub-entreterimento.vercel.app/buscar-filmes-series-home",
+      "https://hub-entreterimento-server.vercel.app/buscar-filmes-series-home",
       {
         headers: {
           "Content-Type": "application/json",

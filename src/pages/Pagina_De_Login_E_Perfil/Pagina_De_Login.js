@@ -29,7 +29,7 @@ export default function Pagina_De_Login() {
 
   const Validar_Tentativa_De_Login = () => {
     Axios.post(
-      "https://hub-entreterimento.vercel.app/tentativa-de-login",
+      "https://hub-entreterimento-server.vercel.app/tentativa-de-login",
       {
         Email_Do_Usuario: Valor_Do_Input_De_Login_Email,
         Senha_Do_Usuario: Valor_Do_Input_De_Login_Senha,
@@ -62,7 +62,7 @@ export default function Pagina_De_Login() {
   };
   const Cadastrar_Usuario = () => {
     Axios.post(
-      "https://hub-entreterimento.vercel.app/cadastrar-usuario",
+      "https://hub-entreterimento-server.vercel.app/cadastrar-usuario",
       {
         Usuario: Valor_Do_Input_De_Cadastro_User,
         Email: Valor_Do_Input_De_Cadastro_Email,
