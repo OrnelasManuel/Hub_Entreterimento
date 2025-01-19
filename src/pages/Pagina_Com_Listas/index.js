@@ -35,7 +35,7 @@ export default function Pagina_Com_Listas({
   }, [localStorage.getItem("Listas_Encontradas_Para_Home")]);
 
   useEffect(() => {
-    if (Listas_Achadas_Por_Tipo.Generos) {
+    if (Listas_Achadas_Por_Tipo?.Generos) {
       Listas_Achadas_Por_Tipo.Generos.map((Itens_Primais_Do_Objeto) => {
         Itens_Primais_Do_Objeto.Generos.map((Generos_Separados) => {
           setGeneros_Pertencentes_A_Sessao((prev) => {
@@ -46,6 +46,8 @@ export default function Pagina_Com_Listas({
           });
         });
       });
+    } else if (!Listas_Achadas_Por_Tipo?.Generos) {
+      window.location.reload();
     }
   }, [Listas_Achadas_Por_Tipo]);
 
