@@ -68,7 +68,7 @@ export default function Pagina_Com_Listas({
         )
     ) {
       Axios.post(
-        "https://q94cj8s0-5000.brs.devtunnels.ms/salvar-itens-favoritados",
+        "https://hub-entreterimento-server.vercel.app/salvar-itens-favoritados",
         {
           Itens_Favoritados: Itens_Salvos_Como_Favorito,
           Token: localStorage.getItem("Token_De_Usuario"),

@@ -323,7 +323,7 @@ export default function Pagina_Com_Informacoes({
                   ) {
                     setAvaliacao_Sendo_Salva(true);
                     Axios.post(
-                      "https://q94cj8s0-5000.brs.devtunnels.ms/salvar-avaliacoes",
+                      "https://hub-entreterimento-server.vercel.app/salvar-avaliacoes",
                       {
                         Avaliacoes_Escritas: JSON.parse(
                           localStorage.getItem("Avaliacoes_Escritas")

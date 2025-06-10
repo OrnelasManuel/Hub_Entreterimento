@@ -15,7 +15,7 @@ export default function App() {
   useEffect(() => {
     if (localStorage.getItem("Token_De_Usuario")) {
       Axios.post(
-        "https://q94cj8s0-5000.brs.devtunnels.ms/atualizar-informacoes",
+        "https://hub-entreterimento-server.vercel.app/atualizar-informacoes",
         {
           Token: localStorage.getItem("Token_De_Usuario"),
         },

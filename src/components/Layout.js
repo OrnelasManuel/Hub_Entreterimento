@@ -13,7 +13,7 @@ export default function Layout({
     if (localStorage.getItem("Token_De_Usuario")) {
       Setar_Carregamento_De_Dados_Do_Servidor(true);
       Axios.post(
-        "https://q94cj8s0-5000.brs.devtunnels.ms/atualizar-informacoes",
+        "https://hub-entreterimento-server.vercel.app/atualizar-informacoes",
         {
           Token: localStorage.getItem("Token_De_Usuario"),
         },
