@@ -17,7 +17,6 @@ export default function Header_De_Pesquisa({ Titulo_Pagina_Atual }) {
         <i
           className="fa-solid fa-magnifying-glass"
           onClick={() => {
-            console.log(Referencia_Input);
             Referencia_Input.current.focus();
           }}
         ></i>

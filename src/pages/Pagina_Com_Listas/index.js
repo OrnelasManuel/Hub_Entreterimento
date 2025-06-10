@@ -5,6 +5,7 @@ import Header_De_Pesquisa from "../../components/Header_De_Pesquisa";
 import Listagem_De_Itens from "../../components/Listagem_De_Itens";
 
 import "./style.css";
+import Axios from "axios";
 
 export default function Pagina_Com_Listas({
   Titulo_Pagina_Da_Sessao,
@@ -23,6 +24,7 @@ export default function Pagina_Com_Listas({
     setItens_Salvos_Como_Favorito(
       JSON.parse(localStorage.getItem("Itens_Favoritados_Salvos_No_Navegador"))
     );
+
     setListas_Achadas_Por_Tipo(
       JSON.parse(localStorage.getItem("Listas_Encontradas_Para_Home"))
     );
@@ -54,6 +56,41 @@ export default function Pagina_Com_Listas({
       "Itens_Favoritados_Salvos_No_Navegador",
       JSON.stringify(Itens_Salvos_Como_Favorito)
     );
+
+    if (
+      Itens_Salvos_Como_Favorito &&
+      Object.keys(Itens_Salvos_Como_Favorito).length > 0 &&
+      localStorage.getItem("Token_De_Usuario") &&
+      JSON.stringify(Itens_Salvos_Como_Favorito) !==
+        JSON.stringify(
+          JSON.parse(localStorage.getItem("Informacoes_Do_Usuario_Salvas"))
+            ?.Itens_Favoritados
+        )
+    ) {
+      Axios.post(
+        "https://q94cj8s0-5000.brs.devtunnels.ms/salvar-itens-favoritados",
+        {
+          Itens_Favoritados: Itens_Salvos_Como_Favorito,
+          Token: localStorage.getItem("Token_De_Usuario"),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((result) => {
+        if (result.data.Resultado) {
+          console.log(result.data.Nova_Estrutura);
+
+          localStorage.setItem(
+            "Informacoes_Do_Usuario_Salvas",
+            JSON.stringify(result.data.Nova_Estrutura)
+          );
+        } else {
+          alert("Ocorreu um erro ao salvar no perfil");
+        }
+      });
+    }
   }, [Itens_Salvos_Como_Favorito]);
 
   return (

@@ -33,6 +33,10 @@
   left: 5rem;
   font-size: 1.4rem;
   transition: opacity 0.1s linear;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 10vw;
 }
 .Item_Do_Menu > i {
   font-size: 1.8rem;

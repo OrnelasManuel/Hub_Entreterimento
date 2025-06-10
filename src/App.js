@@ -4,6 +4,8 @@ import Axios from "axios";
 import "./StylePadrao.css";
 import RoutesApp from "./RoutesApp";
 
+import Atualizacao_De_Dados_No_Navegador from "./components/Atualizacao_De_Dados_No_Navegador";
+
 export default function App() {
   const [
     Carregamento_De_Dados_Do_Servidor,
@@ -11,6 +13,22 @@ export default function App() {
   ] = useState(true);
 
   useEffect(() => {
+    if (localStorage.getItem("Token_De_Usuario")) {
+      Axios.post(
+        "https://q94cj8s0-5000.brs.devtunnels.ms/atualizar-informacoes",
+        {
+          Token: localStorage.getItem("Token_De_Usuario"),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((result) => {
+        Atualizacao_De_Dados_No_Navegador(result.data.Estrutura_Encontrada);
+      });
+    }
+
     Axios.post(
       "https://hub-entreterimento-server.vercel.app/buscar-filmes-series-home",
       {
@@ -41,6 +59,9 @@ export default function App() {
     <RoutesApp
       Valor_Carregamento_De_Dados_Do_Servidor={
         Carregamento_De_Dados_Do_Servidor
+      }
+      Setar_Carregamento_De_Dados_Do_Servidor={
+        setCarregamento_De_Dados_Do_Servidor
       }
     />
   );

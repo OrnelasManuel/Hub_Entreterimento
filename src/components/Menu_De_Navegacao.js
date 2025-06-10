@@ -3,16 +3,30 @@ import { Link } from "react-router-dom";
 const Itens_Menu = [
   {
     Nome_Link: "Login",
-    Nome_Link_Alternative: "Olá Usuario",
+    Nome_Link_Alternative: () => {
+      return localStorage.getItem("Informacoes_Do_Usuario_Salvas")
+        ? `Olá ${
+            JSON.parse(localStorage.getItem("Informacoes_Do_Usuario_Salvas"))
+              .Nome
+          }`
+        : "Convidado";
+    },
     Icone_Name: "fa-solid fa-right-to-bracket",
     Icone_Name_Alternative: "fa-solid fa-user",
     Link_Navegacao: "/perfil",
     Condicao_De_Alternative: (item) => {
-      return (
-        item.Nome_Link == "Login" && localStorage.getItem("Token_De_Login")
-      );
+      return localStorage.getItem("Token_De_Usuario");
     },
     Alternative: false,
+    Click_Funcao: () => {
+      if (localStorage.getItem("Token_De_Usuario")) {
+        localStorage.removeItem("Token_De_Usuario");
+        localStorage.removeItem("Informacoes_Do_Usuario_Salvas");
+        localStorage.removeItem("Itens_Favoritados_Salvos_No_Navegador");
+        localStorage.removeItem("Avaliacoes_Escritas");
+        window.location.reload();
+      }
+    },
   },
   {
     Nome_Link: "Home",
@@ -63,13 +77,13 @@ export default function Menu_De_Navegacao({
     >
       {Itens_Menu.map((item) => {
         if (item.Condicao_De_Alternative) {
-          item.Alternative = item.Condicao_De_Alternative(item);
+          item.Alternative = item.Condicao_De_Alternative();
         }
 
         if (window.location.pathname !== item.Link_Navegacao) {
           return (
             <Link
-              to={item.Link_Navegacao}
+              to={!item.Alternative && item.Link_Navegacao}
               key={
                 "Item_Do_Menu" +
                 item.Icone_Name +
@@ -86,6 +100,7 @@ export default function Menu_De_Navegacao({
                       width: "4.3rem",
                     }
               }
+              onClick={item?.Click_Funcao}
             >
               <i
                 className={
@@ -105,7 +120,9 @@ export default function Menu_De_Navegacao({
                       }
                 }
               >
-                {item.Alternative ? item.Nome_Link_Alternative : item.Nome_Link}
+                {item.Alternative
+                  ? item.Nome_Link_Alternative()
+                  : item.Nome_Link}
               </span>
             </Link>
           );

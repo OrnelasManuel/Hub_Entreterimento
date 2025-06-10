@@ -1,14 +1,19 @@
 import { useState, useEffect, useRef } from "react";
-
+import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 import Menu_De_Navegacao from "../../components/Menu_De_Navegacao";
 
 import "./style.css";
 
-export default function Pagina_Com_Informacoes() {
+export default function Pagina_Com_Informacoes({
+  Valor_Carregamento_De_Dados_Do_Servidor,
+}) {
   const Referencia_De_Estrelas_Para_Precisao = useRef();
+  const Navegar = useNavigate();
 
   const [Estado_Da_Nav_Bar, setEstado_Da_Nav_Bar] = useState(false);
   const [Informacoes_Do_Item, setInformacoes_Do_Item] = useState(false);
+  const [Avaliacao_Sendo_Salva, setAvaliacao_Sendo_Salva] = useState(false);
   const [Coracao_Com_O_Mouse_Focado, setCoracao_Com_O_Mouse_Focado] =
     useState(undefined);
   const [Itens_Salvos_Como_Favorito, setItens_Salvos_Como_Favorito] = useState(
@@ -50,8 +55,41 @@ export default function Pagina_Com_Informacoes() {
   }, [Itens_Salvos_Como_Favorito]);
 
   useEffect(() => {
-    console.log(Informacoes_Do_Item);
-  }, [Informacoes_Do_Item]);
+    setOpiniao_Deixada_Dentro_Do_Texte_Area((prev) => {
+      let Avaliacoes_Escritas = JSON.parse(
+        localStorage.getItem("Avaliacoes_Escritas")
+      );
+
+      return Avaliacoes_Escritas
+        ? Avaliacoes_Escritas[Informacoes_Do_Item?.Id_Do_Item]
+        : "";
+    });
+  }, [Informacoes_Do_Item, Valor_Carregamento_De_Dados_Do_Servidor]);
+
+  useEffect(() => {
+    let Avaliacoes_Escritas = JSON.parse(
+      localStorage.getItem("Avaliacoes_Escritas")
+    );
+
+    if (Avaliacoes_Escritas) {
+      localStorage.setItem(
+        "Avaliacoes_Escritas",
+        JSON.stringify({
+          ...Avaliacoes_Escritas,
+          [Informacoes_Do_Item?.Id_Do_Item]:
+            Opiniao_Deixada_Dentro_Do_Texte_Area,
+        })
+      );
+    } else {
+      localStorage.setItem(
+        "Avaliacoes_Escritas",
+        JSON.stringify({
+          [Informacoes_Do_Item?.Id_Do_Item]:
+            Opiniao_Deixada_Dentro_Do_Texte_Area,
+        })
+      );
+    }
+  }, [Opiniao_Deixada_Dentro_Do_Texte_Area]);
 
   return (
     <div className="Corpo_Site">
@@ -76,8 +114,6 @@ export default function Pagina_Com_Informacoes() {
                 event.stopPropagation();
 
                 if (Informacoes_Do_Item.Item_Favoritado) {
-                  console.log("Item favoritado");
-
                   setItens_Salvos_Como_Favorito((prev) => {
                     let Novo_Array = [];
                     prev[Informacoes_Do_Item.Estilo_De_Item].map(
@@ -86,10 +122,6 @@ export default function Pagina_Com_Informacoes() {
                           item_filtro.Nome_Do_Item !==
                           Informacoes_Do_Item.Nome_Do_Item
                         ) {
-                          console.log(Informacoes_Do_Item.Nome_Do_Item);
-                          console.log(
-                            "Itens que passaram: " + item_filtro.Nome_Do_Item
-                          );
                           Novo_Array.push(item_filtro);
                         }
                       }
@@ -170,32 +202,34 @@ export default function Pagina_Com_Informacoes() {
                 }
               }}
               className={
-                Informacoes_Do_Item.Item_Favoritado
+                Informacoes_Do_Item?.Item_Favoritado
                   ? Coracao_Com_O_Mouse_Focado ==
-                    Informacoes_Do_Item.Nome_Do_Item
+                    Informacoes_Do_Item?.Nome_Do_Item
                     ? "fa-regular fa-heart"
                     : "fa-solid fa-heart"
                   : Coracao_Com_O_Mouse_Focado ==
-                    Informacoes_Do_Item.Nome_Do_Item
+                    Informacoes_Do_Item?.Nome_Do_Item
                   ? "fa-solid fa-heart"
                   : "fa-regular fa-heart"
               }
               onMouseEnter={() => {
-                setCoracao_Com_O_Mouse_Focado(Informacoes_Do_Item.Nome_Do_Item);
+                setCoracao_Com_O_Mouse_Focado(
+                  Informacoes_Do_Item?.Nome_Do_Item
+                );
               }}
               onMouseLeave={() => {
                 setCoracao_Com_O_Mouse_Focado(undefined);
               }}
             ></i>
 
-            <img src={Informacoes_Do_Item.Url_Do_Item} />
+            <img src={Informacoes_Do_Item?.Url_Do_Item} />
           </div>
           <h2>Informações:</h2>
           <div className="Conjunto_Generos_E_Titulo">
             <p>Gêneros: </p>
 
-            {Informacoes_Do_Item.Ids_Dos_Generos &&
-              Informacoes_Do_Item.Ids_Dos_Generos.map((item, index) => {
+            {Informacoes_Do_Item?.Ids_Dos_Generos &&
+              Informacoes_Do_Item?.Ids_Dos_Generos.map((item, index) => {
                 return (
                   <span
                     key={item + index}
@@ -211,23 +245,23 @@ export default function Pagina_Com_Informacoes() {
           <p>Categorias: </p>
           <p>
             Lançamento:{" "}
-            {Informacoes_Do_Item.Data_De_Lancamento &&
-              Informacoes_Do_Item.Data_De_Lancamento.split("-")
+            {Informacoes_Do_Item?.Data_De_Lancamento &&
+              Informacoes_Do_Item?.Data_De_Lancamento.split("-")
                 .reverse()
                 .join("/")}
           </p>
           <p>Sinopse:</p>
-          <p>{Informacoes_Do_Item.Sinpose_Do_Item}</p>
+          <p>{Informacoes_Do_Item?.Sinpose_Do_Item}</p>
         </div>
         <div className="Conjunto_De_Informacoes_Lado_Direito">
           <div className="Conjunto_De_Titulo_E_Notas">
             <h1 className="Titulo_Do_Item_informacoes">
-              {Informacoes_Do_Item.Nome_Do_Item}
+              {Informacoes_Do_Item?.Nome_Do_Item}
             </h1>
             <span className="Nota_Do_Item_Informacoes">
               Nota:{" "}
-              {Informacoes_Do_Item.Quantia_De_Estrelas_Do_Item
-                ? Informacoes_Do_Item.Quantia_De_Estrelas_Do_Item.toFixed(2)
+              {Informacoes_Do_Item?.Quantia_De_Estrelas_Do_Item
+                ? Informacoes_Do_Item?.Quantia_De_Estrelas_Do_Item.toFixed(2)
                 : "??"}
               /10
             </span>
@@ -249,7 +283,7 @@ export default function Pagina_Com_Informacoes() {
                           (Referencia_De_Estrelas_Para_Precisao.current
                             .scrollWidth /
                             10) *
-                            Informacoes_Do_Item.Quantia_De_Estrelas_Do_Item +
+                            Informacoes_Do_Item?.Quantia_De_Estrelas_Do_Item +
                           "px",
                       }
                     : {}
@@ -265,7 +299,62 @@ export default function Pagina_Com_Informacoes() {
           </div>
 
           <div className="Conjunto_Avaliacao_Titulo_E_Escrita">
-            <h3>Avaliação:</h3>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                margin: "0 0 15px 0",
+              }}
+            >
+              <h3>Avaliação:</h3>
+              <button
+                style={{
+                  backgroundColor: "transparent",
+                  border: "1px solid white",
+                  padding: "5px 20px",
+                  color: "white",
+                  cursor: "pointer",
+                  fontSize: "1.2rem",
+                }}
+                onClick={() => {
+                  if (
+                    !Avaliacao_Sendo_Salva &&
+                    localStorage.getItem("Token_De_Usuario")
+                  ) {
+                    setAvaliacao_Sendo_Salva(true);
+                    Axios.post(
+                      "https://q94cj8s0-5000.brs.devtunnels.ms/salvar-avaliacoes",
+                      {
+                        Avaliacoes_Escritas: JSON.parse(
+                          localStorage.getItem("Avaliacoes_Escritas")
+                        ),
+                        Token: localStorage.getItem("Token_De_Usuario"),
+                      },
+                      {
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                      }
+                    ).then((result) => {
+                      setAvaliacao_Sendo_Salva(false);
+
+                      if (result.data.Resultado) {
+                        alert("Salvo com sucesso");
+                      } else {
+                        alert(result.data.Erro);
+                      }
+                    });
+                  } else if (!localStorage.getItem("Token_De_Usuario")) {
+                    alert("Usuario não conectado");
+                    Navegar("/perfil");
+                  } else {
+                    alert("Ja esta sendo salva");
+                  }
+                }}
+              >
+                Salvar
+              </button>
+            </div>
 
             <textarea
               onInput={(e) => {
@@ -275,9 +364,6 @@ export default function Pagina_Com_Informacoes() {
                 ) {
                   setOpiniao_Deixada_Dentro_Do_Texte_Area(e.target.value);
                 } else {
-                  console.log(
-                    e.target.value.trim().split(/\s+/).filter(Boolean).length
-                  );
                   alert("Limite máximo atingido");
                 }
               }}

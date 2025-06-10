@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+import Atualizacao_De_Dados_No_Navegador from "../../components/Atualizacao_De_Dados_No_Navegador";
 
 import Loading from "../../img/Loading.gif";
 
 export default function Pagina_De_Login() {
+  const Navegar = useNavigate();
+
   const [Valor_Do_Input_De_Login_Email, setValor_Do_Input_De_Login_Email] =
     useState("");
   const [Valor_Do_Input_De_Login_Senha, setValor_Do_Input_De_Login_Senha] =
@@ -45,10 +50,8 @@ export default function Pagina_De_Login() {
         if (Resultado.Resultado) {
           alert("Usuário conectado!");
           localStorage.setItem("Token_De_Usuario", Resultado.Resposta.Token);
-          localStorage.setItem(
-            "Informacoes_Do_Usuario_Salvas",
-            JSON.stringify(Resultado.Resposta)
-          );
+          Atualizacao_De_Dados_No_Navegador(Resposta);
+          Navegar("/");
         } else {
           alert("Senha Invalida");
         }
